@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">Service Genie</string>
+    <string name="title_activity_home">Client Home</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_signup">Signup</string>
+
+    <!-- Login Activity - Start -->
+
+    <string name="activity_login_txt_signup"><u>Don\'t have an account? Sign Up</u></string>
+    <string name="activity_login_email_hint">Email ID</string>
+    <string name="activity_login_password_hint">Password</string>
+    <string name="activity_login_btn_signin">Sign In</string>
+
+    <!-- Login Activity - End -->
+
+    <!-- SignUp Activity - Start -->
+
+    <string name="activity_signup_txt_signin"><u>Already have an account? Sign In</u></string>
+    <string name="activity_signup_first_name_hint">First Name</string>
+    <string name="activity_signup_last_name_hint">Last name</string>
+    <string name="activity_signup_phone_hint">Phone</string>
+    <string name="activity_signup_email_hint">Email ID</string>
+    <string name="activity_signup_password_hint">Password</string>
+    <string name="activity_signup_confirm_password_hint">Confirm Password</string>
+    <string name="activity_signup_btn_signup">Sign Up</string>
+
+    <!-- SignUp Activity - End -->
+
 </resources>
