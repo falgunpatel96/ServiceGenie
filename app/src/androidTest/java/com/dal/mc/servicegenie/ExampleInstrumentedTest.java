@@ -1,4 +1,4 @@
-package com.example.servicegenie;
+package com.dal.mc.servicegenie;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.servicegenie", appContext.getPackageName());
+        assertEquals("com.dal.mc.servicegenie", appContext.getPackageName());
     }
 }

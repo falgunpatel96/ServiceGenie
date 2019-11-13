@@ -1,4 +1,4 @@
-package com.example.servicegenie;
+package com.dal.mc.servicegenie;
 
 import androidx.appcompat.app.AppCompatActivity;
 
