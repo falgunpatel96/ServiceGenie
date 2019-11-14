@@ -18,11 +18,19 @@
     <string name="activity_signup_txt_signin"><u>Already have an account? Sign In</u></string>
     <string name="activity_signup_first_name_hint">First Name</string>
     <string name="activity_signup_last_name_hint">Last name</string>
-    <string name="activity_signup_phone_hint">Phone</string>
-    <string name="activity_signup_email_hint">Email ID</string>
+    <string name="activity_signup_phone_hint">Phone - XXXXXXXXXX</string>
+    <string name="activity_signup_email_hint">Email ID ( use dal.ca email )</string>
     <string name="activity_signup_password_hint">Password</string>
     <string name="activity_signup_confirm_password_hint">Confirm Password</string>
     <string name="activity_signup_btn_signup">Sign Up</string>
+    <string name="activity_signup_password_rules">
+        Password must contain:\n
+        - 1 Lowercase letter\n
+        - 1 Uppercase letter\n
+        - 1 Number\n
+        - 1 Special character (! @ # $ % ^ &amp; * - _ = +)\n
+        - 8 Characters
+    </string>
 
     <!-- SignUp Activity - End -->
 
