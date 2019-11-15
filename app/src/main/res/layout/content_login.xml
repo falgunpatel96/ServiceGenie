@@ -23,7 +23,7 @@
     ]]>
 
     <EditText
-        android:id="@+id/signup.emailId"
+        android:id="@+id/signin.emailId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="78dp"
@@ -33,13 +33,13 @@
         android:ems="12"
         android:hint="@string/activity_login_email_hint"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/signup.password"
+        app:layout_constraintBottom_toTopOf="@+id/signin.password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/signup.password"
+        android:id="@+id/signin.password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="78dp"
@@ -50,10 +50,10 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup.emailId" />
+        app:layout_constraintTop_toBottomOf="@+id/signin.emailId" />
 
     <Button
-        android:id="@+id/signIn"
+        android:id="@+id/signin.signinBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="161dp"
@@ -62,10 +62,10 @@
         android:text="@string/activity_login_btn_signin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup.password" />
+        app:layout_constraintTop_toBottomOf="@+id/signin.password" />
 
     <TextView
-        android:id="@+id/signUpTxt"
+        android:id="@+id/signin.signUpTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="107dp"
@@ -74,5 +74,5 @@
         android:text="@string/activity_login_txt_signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signIn" />
+        app:layout_constraintTop_toBottomOf="@id/signin.signinBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,19 +1,36 @@
 package com.dal.mc.servicegenie;
 
+import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.regex.Pattern;
 
@@ -21,11 +38,16 @@ public class Signup extends AppCompatActivity {
 
     private TextView signinTxtView;
     private EditText firstName, lastName, phone, emailId, password, confirmPassword;
+    private ImageView profilePic;
     private Button signUpBtn;
     private static final Pattern UPPERCASE_REGEX = Pattern.compile("[A-Z]+");
     private static final Pattern LOWERCASE_REGEX = Pattern.compile("[a-z]+");
     private static final Pattern NUMBER_REGEX = Pattern.compile("[0-9]+");
     private static final Pattern SPECIAL_CHAR_REGEX = Pattern.compile("[!@#$%*&^-_=+]+");
+
+    private enum REQUEST_CODES {IMAGE_CAPTURE, CAMERA_ACCESS_PERMISSION, WRITE_EXTERNAL_STORAGE_PERMISSION}
+
+    private static final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +60,7 @@ public class Signup extends AppCompatActivity {
     }
 
     private void loadLayoutElements() {
+        profilePic = findViewById(R.id.profilePic);
         signinTxtView = findViewById(R.id.signup_signInTxt);
         firstName = findViewById(R.id.signup_firstName);
         lastName = findViewById(R.id.signup_lastName);
@@ -47,6 +70,7 @@ public class Signup extends AppCompatActivity {
         confirmPassword = findViewById(R.id.signup_confirmPassword);
         signUpBtn = findViewById(R.id.signup_signUpBtn);
 
+        setupPorfilePicElement();
         setupPhoneEditText();
         setupEmailEditText();
         setupPasswordEditText();
@@ -56,7 +80,7 @@ public class Signup extends AppCompatActivity {
         setupSignupBtn();
     }
 
-    private void validateForm() {
+    private boolean validateForm() {
         boolean valid = true;
         if (firstName.getText().toString().isEmpty()) {
             firstName.setError("Enter first name");
@@ -70,9 +94,7 @@ public class Signup extends AppCompatActivity {
         valid = validateEmail() && valid;
         valid = validatePassword(password) && valid;
         valid = validateConfirmPassword() && valid;
-        if (valid) {
-            Toast.makeText(getApplicationContext(), "Valid", Toast.LENGTH_SHORT).show();
-        }
+        return valid;
     }
 
     private boolean validateConfirmPassword() {
@@ -126,16 +148,16 @@ public class Signup extends AppCompatActivity {
             emailId.setError("Enter email ID");
             valid = false;
         } else if (!emailAddress.contains("@")) {
-                emailId.setError("Enter valid email ID");
-                valid = false;
+            emailId.setError("Enter valid email ID");
+            valid = false;
         } else if (emailAddress.lastIndexOf(".", emailAddress.indexOf("@")) == -1) {
-                emailId.setError("Enter valid email ID");
-                valid = false;
+            emailId.setError("Enter valid email ID");
+            valid = false;
         } else {
             String[] split = emailAddress.split("@");
             if (split.length > 1) {
                 String domainName = split[1];
-                if(!"dal.ca".equalsIgnoreCase(domainName)) {
+                if (!"dal.ca".equalsIgnoreCase(domainName)) {
                     emailId.setError("Please use dal.ca email");
                     valid = false;
                 }
@@ -148,7 +170,7 @@ public class Signup extends AppCompatActivity {
     private boolean validatePhone() {
         boolean valid = true;
         String phoneNumber = phone.getText().toString();
-        if(phoneNumber.isEmpty()) {
+        if (phoneNumber.isEmpty()) {
             phone.setError("Enter phone number");
             valid = false;
         }
@@ -243,9 +265,86 @@ public class Signup extends AppCompatActivity {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateForm();
+                if (validateForm()) {
+                    final ProgressDialog dialog = new ProgressDialog(Signup.this);
+                    dialog.setMessage("Signing up...");
+                    dialog.setCancelable(false);
+                    dialog.show();
+//                    boolean result = AuthenticationUtil.createUser(emailId.getText().toString(), password.getText().toString(), firstName.getText() + " " + lastName.getText(), phone.getText().toString());
+                    firebaseAuth.createUserWithEmailAndPassword(emailId.getText().toString(), password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                FirebaseUser user = firebaseAuth.getCurrentUser();
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest
+                                        .Builder().setDisplayName(firstName.getText() + " " + lastName.getText()).build();
+                                user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        dialog.dismiss();
+                                        if (task.isSuccessful()) {
+                                            startActivity(new Intent(Signup.this, MainActivity.class));
+                                            finish();
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "Error signing up", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
+                            } else {
+                                dialog.dismiss();
+                                Toast.makeText(getApplicationContext(), "Error signing up", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+
+                }
             }
         });
+    }
+
+    private void setupPorfilePicElement() {
+        profilePic.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        REQUEST_CODES.WRITE_EXTERNAL_STORAGE_PERMISSION.ordinal()) &&
+                        requestPermission(Manifest.permission.CAMERA,
+                                REQUEST_CODES.CAMERA_ACCESS_PERMISSION.ordinal())) {
+                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+                        startActivityForResult(cameraIntent, REQUEST_CODES.IMAGE_CAPTURE.ordinal());
+                    }
+                }
+            }
+        });
+    }
+
+    private boolean requestPermission(String permission, int requestCode) {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), permission) !=
+                PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(Signup.this,
+                    permission)) {
+                Toast.makeText(getApplicationContext(),
+                        "Allow access to choose profile picture", Toast.LENGTH_LONG).show();
+            } else {
+                ActivityCompat.requestPermissions(Signup.this, new String[]{permission},
+                        requestCode);
+            }
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODES.IMAGE_CAPTURE.ordinal() && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            profilePic.setImageBitmap(imageBitmap);
+
+        }
     }
 
     private void setupSignupTextView() {
@@ -262,7 +361,7 @@ public class Signup extends AppCompatActivity {
         signinTxtView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction()) {
+                switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         signinTxtView.setBackgroundColor(getResources().getColor(R.color.colorGreyTxtBackground));
                         break;
