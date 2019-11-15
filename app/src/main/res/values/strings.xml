@@ -3,6 +3,7 @@
     <string name="title_activity_home">Client Home</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_signup">Signup</string>
+    <string name="title_activity_email_verification">Email Verification</string>
 
     <!-- Login Activity - Start -->
 
@@ -30,6 +31,17 @@
         - 1 Number\n
         - 1 Special character (! @ # $ % ^ &amp; * - _ = +)\n
         - 8 Characters
+    </string>
+
+    <!-- SignUp Activity - End -->
+
+    <!-- Email Verification Activity - Start -->
+
+    <string name="activity_email_verify_txt">
+        Email verification pending. Please check your email.
+    </string>
+    <string name="activity_email_verify_send_email">
+        Didn\'t receive an email? <u>Click here to resend email</u>
     </string>
 
     <!-- SignUp Activity - End -->

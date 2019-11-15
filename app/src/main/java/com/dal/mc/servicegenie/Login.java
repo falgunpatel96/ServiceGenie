@@ -21,12 +21,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
     private TextView signupTxtView;
     private Button signinBtn;
     private EditText emailId, password;
+
+    static final String PASSWORD_KEY = "password";
 
     private static final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
@@ -50,6 +53,7 @@ public class Login extends AppCompatActivity {
         password = findViewById(R.id.signin_password);
 
         setupSigninBtn();
+        setupSignupTxt();
     }
 
     private void setupSigninBtn() {
@@ -76,8 +80,15 @@ public class Login extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 dialog.dismiss();
-                                startActivity(new Intent(Login.this, MainActivity.class));
-                                finish();
+                                FirebaseUser user = firebaseAuth.getCurrentUser();
+                                if (user.isEmailVerified()) {
+                                    startActivity(new Intent(Login.this, MainActivity.class));
+                                    finish();
+                                } else {
+                                    Intent emailVerifyIntent = new Intent(Login.this, EmailVerification.class);
+                                    emailVerifyIntent.putExtra(PASSWORD_KEY, password.getText().toString());
+                                    startActivity(emailVerifyIntent);
+                                }
                             } else {
                                 dialog.dismiss();
                                 Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_LONG).show();

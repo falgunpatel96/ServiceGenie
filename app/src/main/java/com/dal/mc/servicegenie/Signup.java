@@ -1,7 +1,9 @@
 package com.dal.mc.servicegenie;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -275,7 +277,7 @@ public class Signup extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                FirebaseUser user = firebaseAuth.getCurrentUser();
+                                final FirebaseUser user = firebaseAuth.getCurrentUser();
                                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest
                                         .Builder().setDisplayName(firstName.getText() + " " + lastName.getText()).build();
                                 user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -283,8 +285,31 @@ public class Signup extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         dialog.dismiss();
                                         if (task.isSuccessful()) {
-                                            startActivity(new Intent(Signup.this, MainActivity.class));
-                                            finish();
+                                            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        new AlertDialog.Builder(Signup  .this).setMessage("User created. Please check email for verification.").setCancelable(false)
+                                                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                                    public void onClick(DialogInterface dialog, int id) {
+                                                                        dialog.dismiss();
+                                                                        Intent emailVerifyIntent = new Intent(new Intent(Signup.this, EmailVerification.class));
+                                                                        emailVerifyIntent.putExtra(Login.PASSWORD_KEY, password.getText().toString());
+                                                                        startActivity(emailVerifyIntent);
+                                                                        finish();
+                                                                    }
+                                                                }).create().show();
+
+                                                    } else {
+                                                        new AlertDialog.Builder(Signup.this).setMessage("User created. Please sign in to continue registration").setCancelable(false)
+                                                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                                    public void onClick(DialogInterface dialog, int id) {
+                                                                        dialog.dismiss();
+                                                                    }
+                                                                }).create().show();
+                                                    }
+                                                }
+                                            });
                                         } else {
                                             Toast.makeText(getApplicationContext(), "Error signing up", Toast.LENGTH_LONG).show();
                                         }
