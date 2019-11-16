@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/rellay1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/grad">
+        <RelativeLayout
+            android:id="@+id/imgUsr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/circle_border">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_margin="9dp"
+                android:adjustViewBounds="true"
+                android:padding="3dp"
+                android:scaleType="centerInside"
+                android:background="@drawable/circle"
+                android:src="@drawable/userphoto"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/profileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imgUsr"
+            android:layout_centerHorizontal="true"
+            android:text="Joey Tribbiani"
+            android:textSize="32sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rellay1"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone"
+                    android:textSize="13sp"
+                    android:textColor="@color/headings"/>
+                <TextView
+                    android:id="@+id/profilePhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+1 (902)-412-1234"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="#000000"
+                    android:textSize="18sp"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/grey"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address"
+                    android:textSize="13sp"
+                    android:textColor="@color/headings"/>
+                <TextView
+                    android:id="@+id/profileAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1234 abc rd, Halifax, NS"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="#000000"
+                    android:textSize="18sp"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/grey"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:textSize="13sp"
+                    android:textColor="@color/headings"/>
+                <TextView
+                    android:id="@+id/profileEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="joey@tribbiani.com"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="#000000"
+                    android:textSize="18sp"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/grey"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Password"
+                    android:textSize="13sp"
+                    android:textColor="@color/headings"/>
+                <TextView
+                    android:id="@+id/profilePassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="f.r.i.e.n.d.s"
+                    android:inputType="textPassword"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="#000000"
+                    android:textSize="18sp"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/grey"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

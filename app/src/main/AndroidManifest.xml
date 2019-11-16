@@ -12,10 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".PhoneVerification"
             android:label="@string/title_activity_phone_verification"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EmailVerification"
             android:label="@string/title_activity_email_verification"
@@ -23,6 +24,11 @@
         <activity
             android:name=".Signup"
             android:label="@string/title_activity_signup"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Profile"
+            android:label="@string/title_activity_profile_t"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

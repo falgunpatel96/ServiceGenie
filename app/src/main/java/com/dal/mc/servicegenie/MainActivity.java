@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
     private Button signout;
+    private Button profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +25,27 @@ public class MainActivity extends AppCompatActivity {
 
         final FirebaseAuth auth = FirebaseAuth.getInstance();
 
-        FirebaseUser user = auth.getCurrentUser();
+        final FirebaseUser user = auth.getCurrentUser();
 
         if (user != null) {
             TextView view = findViewById(R.id.testTxt);
             view.setText(("Hello " + user.getDisplayName()));
         }
-
+        profile=findViewById(R.id.profileBtn);
         signout = findViewById(R.id.testBtn);
+
+        profile.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent profileIntent = new Intent(MainActivity.this, Profile.class);
+                profileIntent.putExtra("name",user.getDisplayName());
+                profileIntent.putExtra("email",user.getEmail());
+                profileIntent.putExtra("phone",user.getPhoneNumber());
+                startActivity(profileIntent);
+                finish();
+            }
+        });
 
         signout.setOnClickListener(new View.OnClickListener() {
 

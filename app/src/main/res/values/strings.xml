@@ -3,6 +3,7 @@
     <string name="title_activity_home">Client Home</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_signup">Signup</string>
+    <string name="title_activity_profile_t">Profile</string>
     <string name="title_activity_email_verification">Email Verification</string>
     <string name="title_activity_phone_verification">Phone Verification</string>
 
@@ -55,6 +56,7 @@
     <string name="activity_phone_verify_send_code">Send Code</string>
     <string name="activity_phone_verify_resend_code">Resend Code</string>
     <string name="activity_phone_verify_verify_btn">Verify Code</string>
+    <string name="title_activity_profile">activity_profile</string>
 
     <!-- Phone Verification Activity - End -->
 
