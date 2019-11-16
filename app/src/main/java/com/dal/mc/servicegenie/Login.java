@@ -81,13 +81,18 @@ public class Login extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 dialog.dismiss();
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                                if (user.isEmailVerified()) {
-                                    startActivity(new Intent(Login.this, MainActivity.class));
-                                    finish();
-                                } else {
+                                if (!user.isEmailVerified()) {
                                     Intent emailVerifyIntent = new Intent(Login.this, EmailVerification.class);
                                     emailVerifyIntent.putExtra(PASSWORD_KEY, password.getText().toString());
                                     startActivity(emailVerifyIntent);
+                                    password.setText("");
+                                } else if (user.getPhoneNumber() == null){
+                                    Intent phoneIntent = new Intent(Login.this, PhoneVerification.class);
+                                    startActivity(phoneIntent);
+                                    password.setText("");
+                                } else {
+                                    startActivity(new Intent(Login.this, MainActivity.class));
+                                    finish();
                                 }
                             } else {
                                 dialog.dismiss();

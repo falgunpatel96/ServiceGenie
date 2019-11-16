@@ -4,6 +4,7 @@
     <string name="title_activity_login">Login</string>
     <string name="title_activity_signup">Signup</string>
     <string name="title_activity_email_verification">Email Verification</string>
+    <string name="title_activity_phone_verification">Phone Verification</string>
 
     <!-- Login Activity - Start -->
 
@@ -44,6 +45,17 @@
         Didn\'t receive an email? <u>Click here to resend email</u>
     </string>
 
-    <!-- SignUp Activity - End -->
+    <!-- Email Verification Activity - End -->
+
+    <!-- Phone Verification Activity - Start -->
+
+    <string name="activity_phone_verify_country_code">+1</string>
+    <string name="activity_phone_verify_phone_hint">XXX XXX XXXX</string>
+    <string name="activity_phone_verify_otp_hint">Enter OTP here</string>
+    <string name="activity_phone_verify_send_code">Send Code</string>
+    <string name="activity_phone_verify_resend_code">Resend Code</string>
+    <string name="activity_phone_verify_verify_btn">Verify Code</string>
+
+    <!-- Phone Verification Activity - End -->
 
 </resources>

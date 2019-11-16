@@ -61,7 +61,6 @@ public class EmailVerification extends AppCompatActivity {
                         final String email = user.getEmail();
                         AuthCredential credential = EmailAuthProvider
                                 .getCredential(email, password);
-                        System.out.println(password);
                         user.reauthenticateAndRetrieveData(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -70,7 +69,12 @@ public class EmailVerification extends AppCompatActivity {
                                     if (user != null) {
                                         if (user.isEmailVerified()) {
                                             handler.removeCallbacks(runnable);
-                                            startActivity(new Intent(EmailVerification.this, MainActivity.class));
+                                            String phoneNumber = getIntent().getStringExtra(Signup.PHONE_NUMBER_KEY);
+                                            Intent phoneVerifyIntent = new Intent(EmailVerification.this, PhoneVerification.class);
+                                            if (phoneNumber != null) {
+                                                phoneVerifyIntent.putExtra(Signup.PHONE_NUMBER_KEY, phoneNumber);
+                                            }
+                                            startActivity(phoneVerifyIntent);
                                             progressBar.setVisibility(View.GONE);
                                             finish();
                                         } else {
@@ -78,7 +82,6 @@ public class EmailVerification extends AppCompatActivity {
                                         }
                                     }
                                 } else {
-                                    System.out.println("Signin failed");
                                     startActivity(new Intent(EmailVerification.this, Login.class));
                                     finish();
                                 }
@@ -86,7 +89,6 @@ public class EmailVerification extends AppCompatActivity {
                         });
                     }
                 } else {
-                    System.out.println("User null first");
                     startActivity(new Intent(EmailVerification.this, Login.class));
                     finish();
                 }

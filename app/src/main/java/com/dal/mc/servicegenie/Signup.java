@@ -46,6 +46,7 @@ public class Signup extends AppCompatActivity {
     private static final Pattern LOWERCASE_REGEX = Pattern.compile("[a-z]+");
     private static final Pattern NUMBER_REGEX = Pattern.compile("[0-9]+");
     private static final Pattern SPECIAL_CHAR_REGEX = Pattern.compile("[!@#$%*&^-_=+]+");
+    static final String PHONE_NUMBER_KEY = "phoneNumber";
 
     private enum REQUEST_CODES {IMAGE_CAPTURE, CAMERA_ACCESS_PERMISSION, WRITE_EXTERNAL_STORAGE_PERMISSION}
 
@@ -92,7 +93,7 @@ public class Signup extends AppCompatActivity {
             lastName.setError("Enter last name");
             valid = false;
         }
-        valid = validatePhone() && valid;
+        valid = validatePhone(phone) && valid;
         valid = validateEmail() && valid;
         valid = validatePassword(password) && valid;
         valid = validateConfirmPassword() && valid;
@@ -152,7 +153,7 @@ public class Signup extends AppCompatActivity {
         } else if (!emailAddress.contains("@")) {
             emailId.setError("Enter valid email ID");
             valid = false;
-        } else if (emailAddress.lastIndexOf(".", emailAddress.indexOf("@")) == -1) {
+        } else if (emailAddress.indexOf(".", emailAddress.indexOf("@")) == -1) {
             emailId.setError("Enter valid email ID");
             valid = false;
         } else {
@@ -169,9 +170,9 @@ public class Signup extends AppCompatActivity {
         return valid;
     }
 
-    private boolean validatePhone() {
+    static boolean validatePhone(EditText phone) {
         boolean valid = true;
-        String phoneNumber = phone.getText().toString();
+        String phoneNumber = phone.getText().toString().replaceAll(" ", "");
         if (phoneNumber.isEmpty()) {
             phone.setError("Enter phone number");
             valid = false;
@@ -253,7 +254,8 @@ public class Signup extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validatePhone();
+                validatePhone(phone);
+                PhoneVerification.autoFormatPhoneNumberField(s,  phone);
             }
 
             @Override
@@ -272,7 +274,6 @@ public class Signup extends AppCompatActivity {
                     dialog.setMessage("Signing up...");
                     dialog.setCancelable(false);
                     dialog.show();
-//                    boolean result = AuthenticationUtil.createUser(emailId.getText().toString(), password.getText().toString(), firstName.getText() + " " + lastName.getText(), phone.getText().toString());
                     firebaseAuth.createUserWithEmailAndPassword(emailId.getText().toString(), password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -295,6 +296,7 @@ public class Signup extends AppCompatActivity {
                                                                         dialog.dismiss();
                                                                         Intent emailVerifyIntent = new Intent(new Intent(Signup.this, EmailVerification.class));
                                                                         emailVerifyIntent.putExtra(Login.PASSWORD_KEY, password.getText().toString());
+                                                                        emailVerifyIntent.putExtra(PHONE_NUMBER_KEY, phone.getText().toString());
                                                                         startActivity(emailVerifyIntent);
                                                                         finish();
                                                                     }

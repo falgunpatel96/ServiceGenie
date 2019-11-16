@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "502091636433-c2pj5pn5js4i3s71ltsam3o0qeq61rt4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dal.mc.servicegenie",
+            "certificate_hash": "9675e14816d153dbe18923316a14976170f8c28b"
+          }
+        },
+        {
           "client_id": "502091636433-8nn74j1afmi5j9a61dn95aem9e6p7mk1.apps.googleusercontent.com",
           "client_type": 3
         }
