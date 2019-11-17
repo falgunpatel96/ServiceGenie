@@ -25,6 +25,11 @@
     <string name="activity_signup_first_name_hint">First Name</string>
     <string name="activity_signup_last_name_hint">Last name</string>
     <string name="activity_signup_phone_hint">Phone - XXXXXXXXXX</string>
+    <string name="activity_signup_address1_hint">Street address</string>
+    <string name="activity_signup_address2_hint">Unit number, Locality</string>
+    <string name="activity_signup_city_hint">City</string>
+    <string name="activity_signup_country_val">Canada</string>
+    <string name="activity_signup_postalcode_hint">Postal Code</string>
     <string name="activity_signup_email_hint">Email ID ( use dal.ca email )</string>
     <string name="activity_signup_password_hint">Password</string>
     <string name="activity_signup_confirm_password_hint">Confirm Password</string>
@@ -37,6 +42,23 @@
         - 1 Special character (! @ # $ % ^ &amp; * - _ = +)\n
         - 8 Characters
     </string>
+
+    <string-array name="activity_signup_provinces">
+        <item>Province</item>
+        <item>Alberta</item>
+        <item>British Columbia</item>
+        <item>Manitoba</item>
+        <item>New Brunswick</item>
+        <item>Newfoundland and Labrador</item>
+        <item>Northwest Territories</item>
+        <item>Nova Scotia</item>
+        <item>Nunavut</item>
+        <item>Ontario</item>
+        <item>Prince Edward Island</item>
+        <item>Quebec</item>
+        <item>Saskatchewan</item>
+        <item>Yukon</item>
+    </string-array>
 
     <!-- SignUp Activity - End -->
 

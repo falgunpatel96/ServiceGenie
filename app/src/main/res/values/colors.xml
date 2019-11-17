@@ -5,6 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorGreyTxtBackground">#B9B7B7</color>
     <color name="colorWhiteTxtBackground">#FFFFFF</color>
+    <color name="hintColor">#969696</color>
     <color name="colorPrimaryProfile">#49BEFF</color>
     <color name="colorPrimaryDarkProfile">#69DCE5</color>
     <color name="colorAccentProfile">#0D5D98</color>
@@ -20,4 +21,5 @@
     <color name="grey">#E5E5E5</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 </resources>
