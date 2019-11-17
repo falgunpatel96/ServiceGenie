@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -48,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
         if (user != null) {
             TextView view = findViewById(R.id.testTxt);
             view.setText(("Hello " + user.getDisplayName()));
+        } else {
+            startActivity(new Intent(MainActivity.this, Login.class));
+            finish();
         }
         profile = findViewById(R.id.profileBtn);
         signout = findViewById(R.id.testBtn);
@@ -63,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
                 profileIntent.putExtra("email", user.getEmail());
                 profileIntent.putExtra("phone", user.getPhoneNumber());
                 startActivity(profileIntent);
-                finish();
             }
         });
 
