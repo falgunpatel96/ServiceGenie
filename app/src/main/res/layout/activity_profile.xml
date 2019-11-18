@@ -11,30 +11,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/grad">
-        <RelativeLayout
-            android:id="@+id/imgUsr"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/profile.profilePicLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:background="@drawable/circle_border">
+            android:layout_centerHorizontal="true"
+            >
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile.profilePic"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_weight="0.2"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/userphoto"
+                />
 
-            <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_margin="9dp"
-                android:adjustViewBounds="true"
-                android:padding="3dp"
-                android:scaleType="centerInside"
-                android:background="@drawable/circle"
-                android:src="@drawable/userphoto"/>
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/profileName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imgUsr"
+            android:layout_below="@id/profile.profilePicLayout"
             android:layout_centerHorizontal="true"
             android:text="Joey Tribbiani"
             android:textSize="32sp"

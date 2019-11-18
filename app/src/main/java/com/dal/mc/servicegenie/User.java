@@ -9,12 +9,13 @@ public class User {
     private String province;
     private String country;
     private String postalCode;
+    private String profilePicEncoded;
 
     public User() {
 
     }
 
-    public User(String uid, String displayName, String streetAddress, String address2, String city, String province, String country, String postalCode) {
+    public User(String uid, String displayName, String streetAddress, String address2, String city, String province, String country, String postalCode, String profilePicEncoded) {
         this.uid = uid;
         this.displayName = displayName;
         this.streetAddress = streetAddress;
@@ -23,6 +24,11 @@ public class User {
         this.province = province;
         this.country = country;
         this.postalCode = postalCode;
+        this.profilePicEncoded = profilePicEncoded;
+    }
+
+    public String getProfilePicEncoded() {
+        return profilePicEncoded;
     }
 
     public String getUid() {

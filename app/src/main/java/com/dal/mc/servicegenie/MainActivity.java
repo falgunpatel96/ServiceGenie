@@ -68,9 +68,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent profileIntent = new Intent(MainActivity.this, Profile.class);
-                profileIntent.putExtra("name", user.getDisplayName());
-                profileIntent.putExtra("email", user.getEmail());
-                profileIntent.putExtra("phone", user.getPhoneNumber());
                 startActivity(profileIntent);
             }
         });
