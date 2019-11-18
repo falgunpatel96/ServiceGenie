@@ -116,7 +116,12 @@ public class EmailVerification extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             dialog.dismiss();
                             if (task.isSuccessful()) {
-                                Toast.makeText(getApplicationContext(), "Email sent", Toast.LENGTH_SHORT).show();
+                                new AlertDialog.Builder(EmailVerification.this).setMessage("Email sent. Please don't forget to check spam folder").setCancelable(false)
+                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.dismiss();
+                                            }
+                                        }).create().show();
                             } else {
                                 Exception e = task.getException();
                                 if (e != null) {

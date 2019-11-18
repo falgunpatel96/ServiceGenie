@@ -1,6 +1,8 @@
 package com.dal.mc.servicegenie;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
-    private TextView signupTxtView;
+    private TextView signupTxtView, forgotPassword;
     private Button signinBtn;
     private EditText emailId, password;
 
@@ -51,9 +54,62 @@ public class Login extends AppCompatActivity {
         signinBtn = findViewById(R.id.signin_signinBtn);
         emailId = findViewById(R.id.signin_emailId);
         password = findViewById(R.id.signin_password);
+        forgotPassword = findViewById(R.id.signin_forgotPassword);
 
         setupSigninBtn();
         setupSignupTxt();
+        setupForgotPasswordTxt();
+    }
+
+    private void setupForgotPasswordTxt() {
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (Signup.validateEmail(emailId)) {
+                    final ProgressDialog dialog = new ProgressDialog(Login.this);
+                    dialog.setMessage("Sending password reset email...");
+                    dialog.setCancelable(false);
+                    dialog.show();
+                    firebaseAuth.sendPasswordResetEmail(emailId.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull final Task<Void> task) {
+                            dialog.dismiss();
+                            if (task.isSuccessful()) {
+                                new AlertDialog.Builder(Login.this).setMessage("Password reset email sent. Please don't forget to check spam folder.").setCancelable(false)
+                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                            } else {
+                                Exception e = task.getException();
+                                if (e != null) {
+                                    e.printStackTrace();
+                                }
+                                Toast.makeText(getApplicationContext(), "Error sending password resend mail", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            }
+
+        });
+
+        forgotPassword.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        forgotPassword.setBackgroundColor(getResources().getColor(R.color.colorGreyTxtBackground));
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_UP:
+                        forgotPassword.setBackgroundColor(Color.TRANSPARENT);
+                }
+                return false;
+            }
+        });
     }
 
     private void setupSigninBtn() {

@@ -13,6 +13,7 @@
     <!-- Login Activity - Start -->
 
     <string name="activity_login_txt_signup"><u>Don\'t have an account? Sign Up</u></string>
+    <string name="activity_login_txt_forgot_password"><u>Forgot password</u></string>
     <string name="activity_login_email_hint">Email ID</string>
     <string name="activity_login_password_hint">Password</string>
     <string name="activity_login_btn_signin">Sign In</string>

@@ -197,7 +197,7 @@ public class Signup extends AppCompatActivity {
             errorText.setText("Select a province");
         }
         valid = validatePostalCode() && valid;
-        valid = validateEmail() && valid;
+        valid = validateEmail(emailId) && valid;
         valid = validatePassword(password) && valid;
         valid = validateConfirmPassword() && valid;
         return valid;
@@ -247,7 +247,7 @@ public class Signup extends AppCompatActivity {
         return valid;
     }
 
-    private boolean validateEmail() {
+    static boolean validateEmail(EditText emailId) {
         boolean valid = true;
         String emailAddress = emailId.getText().toString();
         if (emailAddress.isEmpty()) {
@@ -338,7 +338,7 @@ public class Signup extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validateEmail();
+                validateEmail(emailId);
             }
 
             @Override
@@ -445,7 +445,7 @@ public class Signup extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
-                                            new AlertDialog.Builder(Signup.this).setMessage("User created. Please check email for verification.").setCancelable(false)
+                                            new AlertDialog.Builder(Signup.this).setMessage("User created. Please check email for verification. Please don't forget to check spam folder.").setCancelable(false)
                                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                         public void onClick(DialogInterface dialog, int id) {
                                                             dialog.dismiss();
