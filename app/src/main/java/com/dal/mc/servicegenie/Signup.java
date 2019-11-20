@@ -204,8 +204,8 @@ public class Signup extends AppCompatActivity {
     }
 
     private boolean validateConfirmPassword() {
-        boolean valid = validatePassword(confirmPassword);
-        if (valid && !confirmPassword.getText().toString().equals(password.getText().toString())) {
+        boolean valid = true;
+        if (!confirmPassword.getText().toString().equals(password.getText().toString())) {
             confirmPassword.setError("Passwords don't match");
             valid = false;
         }
@@ -381,7 +381,7 @@ public class Signup extends AppCompatActivity {
         if (!isDefaultProfilePic) {
             profilePicEncoded = encodeImage(profilePicBtmp);
         }
-        User client = new User(user.getUid(), user.getDisplayName(), address1.getText().toString(), address2.getText().toString(), city.getText().toString(), provinces.getSelectedItem().toString(), country.getText().toString(), postalCode.getText().toString(), profilePicEncoded);
+        User client = new User(user.getUid(), phone.getText().toString(), user.getDisplayName(), address1.getText().toString(), address2.getText().toString(), city.getText().toString(), provinces.getSelectedItem().toString(), country.getText().toString(), postalCode.getText().toString(), profilePicEncoded);
         users.child(user.getUid()).setValue(client).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -617,6 +617,7 @@ public class Signup extends AppCompatActivity {
     }
 
     private void setupDeleteProfilePic() {
+        deleteProfilePic.setVisibility(View.INVISIBLE);
         deleteProfilePic.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

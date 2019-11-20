@@ -101,7 +101,7 @@ public class PhoneVerification extends AppCompatActivity {
         setupVerifyBtn();
     }
 
-    private void startTimer(int seconds) {
+    static Runnable startTimer(int seconds, Runnable runnable, final Handler handler, final TextView resendTimer, final TextView resendTxtView) {
         if (runnable != null) {
             handler.removeCallbacks(runnable);
         }
@@ -141,16 +141,17 @@ public class PhoneVerification extends AppCompatActivity {
                         } else {
                             handler.removeCallbacks(this);
                             resendTimer.setVisibility(View.INVISIBLE);
-                            resendCode.setEnabled(true);
+                            resendTxtView.setEnabled(true);
                         }
                     }
                 }
             }
         };
         handler.postDelayed(runnable, ONE_SECOND_IN_MILLISECONDS);
+        return runnable;
     }
 
-    private static String getTimerTxt(int seconds) {
+    static String getTimerTxt(int seconds) {
         int min = 0, hours = 0;
         if (seconds > SECONDS_IN_MINUTES) {
             min = seconds / SECONDS_IN_MINUTES;
@@ -163,7 +164,7 @@ public class PhoneVerification extends AppCompatActivity {
         return getTimerTxt(hours, min, seconds);
     }
 
-    private static String getTimerTxt(int hours, int min, int seconds) {
+    static String getTimerTxt(int hours, int min, int seconds) {
         StringBuilder timerTxt = new StringBuilder();
         if (hours > 0) {
             timerTxt.append(hours < 10 ? "0" + hours : hours).append(":");
@@ -266,7 +267,7 @@ public class PhoneVerification extends AppCompatActivity {
                 resendCode.setEnabled(false);
                 resendCode.setText(R.string.activity_phone_verify_resend_code);
                 resendTimer.setVisibility(View.VISIBLE);
-                startTimer(INTERVAL_BETWEEN_RESEND);
+                runnable = startTimer(INTERVAL_BETWEEN_RESEND, runnable, handler, resendTimer, resendCode);
 
                 sendSMSForVerification();
 

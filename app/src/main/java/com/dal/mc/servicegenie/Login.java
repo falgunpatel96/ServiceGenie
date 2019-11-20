@@ -22,8 +22,10 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
@@ -86,8 +88,19 @@ public class Login extends AppCompatActivity {
                                 Exception e = task.getException();
                                 if (e != null) {
                                     e.printStackTrace();
+                                    if (e instanceof FirebaseAuthInvalidUserException) {
+                                        new AlertDialog.Builder(Login.this).setMessage("User not found in inventory. Please try valid email address.").setCancelable(false)
+                                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        dialog.dismiss();
+                                                    }
+                                                });
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Error sending password resend mail", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Error sending password resend mail", Toast.LENGTH_SHORT).show();
                                 }
-                                Toast.makeText(getApplicationContext(), "Error sending password resend mail", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -134,8 +147,8 @@ public class Login extends AppCompatActivity {
                     firebaseAuth.signInWithEmailAndPassword(emailId.getText().toString(), password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+                            dialog.dismiss();
                             if (task.isSuccessful()) {
-                                dialog.dismiss();
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
                                 if (!user.isEmailVerified()) {
                                     Intent emailVerifyIntent = new Intent(Login.this, EmailVerification.class);
@@ -151,8 +164,29 @@ public class Login extends AppCompatActivity {
                                     finish();
                                 }
                             } else {
-                                dialog.dismiss();
-                                Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_LONG).show();
+                                Exception e = task.getException();
+                                if (e != null) {
+                                    e.printStackTrace();
+                                    if (e instanceof FirebaseException) {
+                                        new AlertDialog.Builder(Login.this).setMessage("Failed to connect with server. Check if network connection is available").setCancelable(false)
+                                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        dialog.dismiss();
+                                                    }
+                                                });
+                                    } else if (e instanceof FirebaseAuthInvalidUserException) {
+                                        new AlertDialog.Builder(Login.this).setMessage("Invalid user credentials. Please try again.").setCancelable(false)
+                                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        dialog.dismiss();
+                                                    }
+                                                });
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_LONG).show();
+                                    }
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_LONG).show();
+                                }
                             }
                         }
                     });

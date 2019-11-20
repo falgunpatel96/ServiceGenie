@@ -11,7 +11,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,9 +27,13 @@ import com.google.firebase.auth.FirebaseUser;
 public class EmailVerification extends AppCompatActivity {
 
     private static final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private static final int INTERVAL_BETWEEN_RESEND = 60;
+
     private ProgressBar progressBar;
-    private TextView sendEmailTxt;
+    private TextView sendEmailTxt, resendTimer;
+    private Runnable timerRunnable;
     private Handler handler = new Handler();
+    private Handler timerHandler = new Handler();
     private static final long SLEEP_INTERVAL_BETWEEN_EMAIL_VERIFY = 4000;
 
     @Override
@@ -42,8 +45,11 @@ public class EmailVerification extends AppCompatActivity {
 
         sendEmailTxt = findViewById(R.id.emailverify_sendEmailTxt);
         progressBar = findViewById(R.id.emailverify_progressBar);
+        resendTimer = findViewById(R.id.emailverify_resendTimer);
 
         setupSendEmailTxt();
+
+        onEmailSent();
 
         handler.postDelayed(new Runnable() {
             @Override
@@ -69,6 +75,7 @@ public class EmailVerification extends AppCompatActivity {
                                     if (user != null) {
                                         if (user.isEmailVerified()) {
                                             handler.removeCallbacks(runnable);
+                                            timerHandler.removeCallbacks(timerRunnable);
                                             String phoneNumber = getIntent().getStringExtra(Signup.PHONE_NUMBER_KEY);
                                             Intent phoneVerifyIntent = new Intent(EmailVerification.this, PhoneVerification.class);
                                             if (phoneNumber != null) {
@@ -98,6 +105,12 @@ public class EmailVerification extends AppCompatActivity {
 
     }
 
+    private void onEmailSent() {
+        resendTimer.setVisibility(View.VISIBLE);
+        sendEmailTxt.setEnabled(false);
+        timerRunnable = PhoneVerification.startTimer(INTERVAL_BETWEEN_RESEND, timerRunnable, timerHandler, resendTimer, sendEmailTxt);
+    }
+
     private void setupSendEmailTxt() {
         sendEmailTxt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +129,7 @@ public class EmailVerification extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             dialog.dismiss();
                             if (task.isSuccessful()) {
+                                onEmailSent();
                                 new AlertDialog.Builder(EmailVerification.this).setMessage("Email sent. Please don't forget to check spam folder").setCancelable(false)
                                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {

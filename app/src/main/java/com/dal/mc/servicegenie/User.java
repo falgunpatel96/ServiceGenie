@@ -2,6 +2,7 @@ package com.dal.mc.servicegenie;
 
 public class User {
     private String uid;
+    private String phoneNumber;
     private String displayName;
     private String streetAddress;
     private String address2;
@@ -15,7 +16,7 @@ public class User {
 
     }
 
-    public User(String uid, String displayName, String streetAddress, String address2, String city, String province, String country, String postalCode, String profilePicEncoded) {
+    public User(String uid, String phoneNumber, String displayName, String streetAddress, String address2, String city, String province, String country, String postalCode, String profilePicEncoded) {
         this.uid = uid;
         this.displayName = displayName;
         this.streetAddress = streetAddress;
@@ -25,6 +26,11 @@ public class User {
         this.country = country;
         this.postalCode = postalCode;
         this.profilePicEncoded = profilePicEncoded;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public String getProfilePicEncoded() {
