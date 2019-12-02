@@ -1,17 +1,13 @@
 package com.dal.mc.servicegenie;
 
 import android.app.AlertDialog;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Button signout;
     private Button profile;
-    GridView gridView;
-    Button addserviceBtn;
+    private GridView gridView;
+    private Button addserviceBtn;
 
     int[] images = {
             R.drawable.cleaning, R.drawable.plumbing, R.drawable.electrician,
@@ -104,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Go to addMoreServices page on "addMoreServices' button click
+        // Go to addMoreServices page on 'addMoreServices' button click
         addserviceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,44 +108,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    // for search
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-        if (searchView != null) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-            searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-                @Override
-                public boolean onClose() {
-                    //TODO: Reset your views
-                    return false;
-                }
-            });
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String s) {
-                    return false; //do the default
-                }
-
-                @Override
-                public boolean onQueryTextChange(String s) {
-                    //NOTE: doing anything here is optional, onNewIntent is the important bit
-                    if (s.length() > 1) { //2 chars or more
-                        //TODO: filter/return results
-                    } else if (s.length() == 0) {
-                        //TODO: reset the displayed data
-                    }
-                    return false;
-                }
-
-            });
-        }
-        return true;
-    }
-
 
     @Override
     public void onBackPressed() {
