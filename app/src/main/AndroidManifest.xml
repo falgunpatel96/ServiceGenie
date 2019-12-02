@@ -56,7 +56,6 @@
         <activity android:name=".MainActivity">
         </activity>
         <activity android:name=".AddNewService" />
-        <activity android:name=".activity_popup" />
 
     </application>
 
