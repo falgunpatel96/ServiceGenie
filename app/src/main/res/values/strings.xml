@@ -110,4 +110,5 @@
     <string name="add_service_Comment">Comment</string>
     <string name="add_service_submit_Btn">Submit</string>
     <!--Add more services activity End-->
+    <string name="activity_help_text">If you have any feedback/comments or want to report a problem please contact us.</string>
 </resources>

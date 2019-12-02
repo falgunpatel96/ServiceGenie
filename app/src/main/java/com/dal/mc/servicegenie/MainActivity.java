@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Button profile;
     private GridView gridView;
     private Button addserviceBtn;
+    private Button contactUsBtn;
 
     int[] images = {
             R.drawable.cleaning, R.drawable.plumbing, R.drawable.electrician,
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         profile = findViewById(R.id.profileBtn);
         signout = findViewById(R.id.testBtn);
         addserviceBtn = findViewById(R.id.addMoreServices);
+        contactUsBtn = findViewById(R.id.activity_contact_us);
         gridView = (GridView) findViewById(R.id.grid);
 
         profile.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +107,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), AddNewService.class));
+            }
+        });
+
+        // go to contact us page
+        contactUsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), activity_help.class));
             }
         });
     }
