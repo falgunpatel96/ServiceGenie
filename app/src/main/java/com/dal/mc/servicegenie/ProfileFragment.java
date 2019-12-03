@@ -16,12 +16,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Intent intent = new Intent(getActivity(), Profile.class);
-        final ProgressDialog dialog = new ProgressDialog(getContext());
-        dialog.setMessage("Loading...");
-        dialog.setCancelable(false);
-        dialog.show();
         startActivity(intent);
-        dialog.dismiss();
         return inflater.inflate(R.layout.activity_profile, container, false);
     }
 }
