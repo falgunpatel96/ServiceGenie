@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                     default:
                         break;
                 }*/
-                intent = new Intent(getApplicationContext(), BookingService.class); // [change name to Booking page]
+                intent = new Intent(getApplicationContext(), BookingService.class);
                 intent.putExtra("SERVICE_NAME", values[position]);
                 startActivity(intent);
             }

@@ -24,6 +24,7 @@
 
             <TextView
                 android:layout_width="match_parent"
+                android:id="@+id/booking_service_name"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/service_image"
                 android:gravity="center"

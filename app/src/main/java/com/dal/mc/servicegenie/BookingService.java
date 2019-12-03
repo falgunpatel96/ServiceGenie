@@ -1,13 +1,10 @@
 package com.dal.mc.servicegenie;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +12,14 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.vivekkaushik.datepicker.OnDateSelectedListener;
 
 import java.util.Calendar;
@@ -28,12 +33,42 @@ public class BookingService extends AppCompatActivity {
     TimePickerDialog tpd;
     //Button location;
     GPSTracker gps;
+    String serviceNm;
+    TextView bookingServiceName;
+    TextView bookingDesc;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking_service);
+        bookingServiceName = findViewById(R.id.booking_service_name);
+        bookingDesc = findViewById(R.id.description);
+
+        Intent intent = getIntent();
+        // get desc and name from firebase
+        serviceNm= intent.getStringExtra("SERVICE_NAME");
+        System.out.println(serviceNm);
+        final DatabaseReference services = FirebaseDatabase.getInstance().getReference("services");
+        services.addValueEventListener(new ValueEventListener() {
+               @Override
+               public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                   for (DataSnapshot data: dataSnapshot.getChildren()) {
+                       Service service = data.getValue(Service.class);
+                       if(serviceNm.equalsIgnoreCase(service.getServiceName())){
+                           // set front layout
+                           bookingServiceName.setText(serviceNm);
+                           bookingDesc.setText(service.getServiceDesc());
+                       }
+                   }
+               }
+
+               @Override
+               public void onCancelled(@NonNull DatabaseError databaseError) {
+
+               }
+           });
+        //services.child("services").orderByChild("serviceName").equalTo(serviceNm);
 
         gps = new GPSTracker(BookingService.this);
         gps.getLocation();
