@@ -18,5 +18,6 @@ public class BookingsFragment extends Fragment {
         Intent intent = new Intent(getActivity(), MyBookings.class);
         startActivity(intent);
         return inflater.inflate(R.layout.my_bookings, container, false);
+
     }
 }
