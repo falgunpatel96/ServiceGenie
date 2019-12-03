@@ -286,7 +286,7 @@
     <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2019-12-02T23:18:32.064Z" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/java/com/dal/mc/servicegenie" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -402,8 +402,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1549" height="837" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49756098" visible="true" weight="0.18511066" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49756098" visible="true" weight="0.18511066" />
       <window_info id="Structure" order="1" side_tool="true" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Build Variants" order="3" sideWeight="0.502439" side_tool="true" weight="0.13279678" />
@@ -414,12 +415,12 @@
       <window_info id="Designer" order="8" />
       <window_info anchor="bottom" id="TODO" order="0" weight="0.32956153" />
       <window_info anchor="bottom" id="Terminal" order="1" sideWeight="0.49966466" weight="0.32956153" />
-      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.50033534" side_tool="true" weight="0.32956153" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="2" sideWeight="0.501006" side_tool="true" visible="true" weight="0.32956153" />
       <window_info anchor="bottom" id="Version Control" order="3" sideWeight="0.49966466" weight="0.32956153" />
       <window_info anchor="bottom" id="Android Profiler" order="4" sideWeight="0.49966466" weight="0.32956153" />
       <window_info anchor="bottom" id="Debug" order="5" />
       <window_info anchor="bottom" id="Logcat" order="6" sideWeight="0.49966466" weight="0.32956153" />
-      <window_info anchor="bottom" id="Run" order="7" visible="true" weight="0.3281471" />
+      <window_info anchor="bottom" id="Run" order="7" sideWeight="0.49899396" weight="0.3281471" />
       <window_info anchor="bottom" id="Build" order="8" weight="0.42008486" />
       <window_info anchor="bottom" id="Messages" order="9" weight="0.32928064" />
       <window_info anchor="bottom" id="Find" order="10" weight="0.32956153" />
