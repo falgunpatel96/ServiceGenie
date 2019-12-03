@@ -140,33 +140,6 @@
                     android:layout_marginTop="15dp"
                     android:background="@color/grey"/>
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Password"
-                    android:textSize="13sp"
-                    android:textColor="@color/headings"/>
-                <TextView
-                    android:id="@+id/profilePassword"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="f.r.i.e.n.d.s"
-                    android:inputType="textPassword"
-                    android:fontFamily="sans-serif-light"
-                    android:textColor="#000000"
-                    android:textSize="18sp"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@color/grey"/>
-            </LinearLayout>
 
         </LinearLayout>
 
@@ -181,22 +154,67 @@
         >
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/profile.changePassword"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:text="Sign Out"
-            app:rippleColor="@color/colorGreyTxtBackground"
+            android:layout_marginBottom="0dp"
+            android:text="@string/activity_profile_change_password"
+            android:textSize="15sp"
+            android:textColor="@color/black"
             app:backgroundTint="@android:color/transparent"
             app:cornerRadius="0dp"
-            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@id/profile.signOut"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:rippleColor="@color/colorGreyTxtBackground"
+            app:strokeColor="@color/black"
+            app:strokeWidth="2dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/profile.signOut"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/activity_profile_signout"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:backgroundTint="@android:color/transparent"
+            app:cornerRadius="0dp"
+            app:layout_constraintBottom_toTopOf="@id/profile.deleteAccount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:rippleColor="@color/colorGreyTxtBackground"
+            app:strokeColor="@color/black"
+            app:strokeWidth="2dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/profile.deleteAccount"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="0dp"
+            android:text="@string/activity_profile_delete_user"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:backgroundTint="@android:color/transparent"
+            app:cornerRadius="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:rippleColor="@color/colorGreyTxtBackground"
             app:strokeColor="@color/black"
             app:strokeWidth="2dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

@@ -212,12 +212,10 @@ public class Signup extends AppCompatActivity {
         return valid;
     }
 
-    private boolean validatePassword(EditText password) {
+    static String validatePassword(String passwordTxt) {
         boolean valid = true;
-        String passwordTxt = password.getText().toString();
         if (passwordTxt.isEmpty()) {
-            password.setError("Enter password");
-            valid = false;
+            return "Enter password";
         } else {
             StringBuilder error = new StringBuilder("Password must contain:");
             if (!UPPERCASE_REGEX.matcher(passwordTxt).find()) {
@@ -241,10 +239,20 @@ public class Signup extends AppCompatActivity {
                 valid = false;
             }
             if (!valid) {
-                password.setError(error.toString());
+                return error.toString();
             }
         }
-        return valid;
+        return "";
+    }
+
+    private boolean validatePassword(EditText password) {
+        String passwordTxt = password.getText().toString();
+        String error = validatePassword(passwordTxt);
+        if (!error.isEmpty()) {
+            password.setError(error);
+            return false;
+        }
+        return true;
     }
 
     static boolean validateEmail(EditText emailId) {

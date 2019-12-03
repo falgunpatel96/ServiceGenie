@@ -25,6 +25,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -83,7 +84,7 @@ public class Login extends AppCompatActivity {
                                             public void onClick(DialogInterface dialog, int id) {
                                                 dialog.dismiss();
                                             }
-                                        });
+                                        }).create().show();
                             } else {
                                 Exception e = task.getException();
                                 if (e != null) {
@@ -94,7 +95,7 @@ public class Login extends AppCompatActivity {
                                                     public void onClick(DialogInterface dialog, int id) {
                                                         dialog.dismiss();
                                                     }
-                                                });
+                                                }).create().show();
                                     } else {
                                         Toast.makeText(getApplicationContext(), "Error sending password resend mail", Toast.LENGTH_SHORT).show();
                                     }
@@ -167,20 +168,29 @@ public class Login extends AppCompatActivity {
                                 Exception e = task.getException();
                                 if (e != null) {
                                     e.printStackTrace();
-                                    if (e instanceof FirebaseException) {
-                                        new AlertDialog.Builder(Login.this).setMessage("Failed to connect with server. Check if network connection is available").setCancelable(false)
+                                    if (e instanceof FirebaseAuthInvalidUserException) {
+                                        new AlertDialog.Builder(Login.this).setMessage(e.getMessage()).setCancelable(false)
+                                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        password.getText().clear();
+                                                        password.requestFocus();
+                                                        dialog.dismiss();
+                                                    }
+                                                }).create().show();
+                                    } else if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                                        new AlertDialog.Builder(Login.this).setMessage("Invalid credentials. Please try again.").setCancelable(false)
                                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int id) {
                                                         dialog.dismiss();
                                                     }
-                                                });
-                                    } else if (e instanceof FirebaseAuthInvalidUserException) {
-                                        new AlertDialog.Builder(Login.this).setMessage("Invalid user credentials. Please try again.").setCancelable(false)
+                                                }).create().show();
+                                    } else if (e instanceof FirebaseException) {
+                                        new AlertDialog.Builder(Login.this).setMessage(e.getMessage()).setCancelable(false)
                                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int id) {
                                                         dialog.dismiss();
                                                     }
-                                                });
+                                                }).create().show();
                                     } else {
                                         Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_LONG).show();
                                     }

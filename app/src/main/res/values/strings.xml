@@ -6,6 +6,10 @@
     <string name="title_activity_profile_t">Profile</string>
     <string name="title_activity_email_verification">Email Verification</string>
     <string name="title_activity_phone_verification">Phone Verification</string>
+    <string name="title_activity_change_password">Change Password</string>
+    <string name="title_activity_profile">activity_profile</string>
+
+
     <string name="addMoreServices">Not Listed? Add here</string>
     <string name="search_hint">Search here</string>
     <string name="search_title">Type</string>
@@ -82,8 +86,24 @@
     <string name="activity_phone_verify_send_code">Send Code</string>
     <string name="activity_phone_verify_resend_code">Resend Code</string>
     <string name="activity_phone_verify_verify_btn">Verify Code</string>
-    <string name="title_activity_profile">activity_profile</string>
 
     <!-- Phone Verification Activity - End -->
+
+    <!-- Profile Activity - Start -->
+
+    <string name="activity_profile_signout">Sign Out</string>
+    <string name="activity_profile_delete_user">Delete Account</string>
+    <string name="activity_profile_change_password">Change Password</string>
+
+    <!-- Profile Activity - End-->
+
+    <!-- Change password Activity - Start -->
+
+    <string name="activity_change_password_old_pwd_hint">Current Password</string>
+    <string name="activity_change_password_new_pwd_hint">New Password</string>
+    <string name="activity_change_password_confirm_pwd_hint">Confirm Password</string>
+    <string name="activity_change_password_update_pwd_hint">Update Password</string>
+
+    <!-- Change password Activity - End-->
 
 </resources>
