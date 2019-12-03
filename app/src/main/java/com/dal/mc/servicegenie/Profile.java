@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -22,11 +23,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,6 +49,7 @@ public class Profile extends AppCompatActivity {
     private CircleImageView profilePic;
     private MaterialButton signOut, deleteAccount, changePassword,editButton;
     private FirebaseUser user;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +63,43 @@ public class Profile extends AppCompatActivity {
 
         loadUserElements();
         setUserElements();
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.nav_profile);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+
 
     }
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    Fragment selectedFragment = null;
+
+                    switch (menuItem.getItemId()) {
+                        case R.id.nav_home:
+                            selectedFragment = new HomeFragment();
+                            break;
+
+                        case R.id.nav_bookings:
+                            selectedFragment = new BookingsFragment();
+                            break;
+
+                        case R.id.nav_help:
+                            selectedFragment = new HelpFragment();
+                            break;
+
+                        case R.id.nav_profile:
+                            selectedFragment = new ProfileFragment();
+                            break;
+
+                    }
+//                    bottomNavigationView.setSelectedItemId(menuItem.getItemId());
+
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, selectedFragment).commit();
+
+                    return true;
+                }
+            };
 
     private void loadUserElements() {
         nameView = findViewById(R.id.profileName);
@@ -91,7 +130,7 @@ public class Profile extends AppCompatActivity {
                     addressView.setEnabled(true);
                     editButton.setText("Save");
                     Drawable img = getResources().getDrawable( R.drawable.ic_save_black_24dp);
-                    img.setBounds( 0, 0, 235, 235 );  // set the image size
+                    img.setBounds( 0, 0, 174, 174);  // set the image size
                     editButton.setCompoundDrawables( img, null, null, null );
                 }
                 else{
@@ -105,7 +144,7 @@ public class Profile extends AppCompatActivity {
                     Log.v("address",updatedAddress);
                     editButton.setText("Edit");
                     Drawable img = getResources().getDrawable( R.drawable.ic_mode_edit_black_24dp);
-                    img.setBounds( 0, 0, 235, 235 );  // set the image size
+                    img.setBounds( 0, 0, 174, 174);  // set the image size
                     editButton.setCompoundDrawables( img, null, null, null );
                     Toast.makeText(getApplicationContext(),"Entered save",Toast.LENGTH_SHORT).show();
                     dialog.setMessage("Updating Profile...");

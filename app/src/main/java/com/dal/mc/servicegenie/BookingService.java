@@ -36,6 +36,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.vivekkaushik.datepicker.OnDateSelectedListener;
 
@@ -91,27 +92,21 @@ public class BookingService extends AppCompatActivity {
         Intent intent = getIntent();
         // get desc and name from firebase
         serviceNm= intent.getStringExtra("SERVICE_NAME");
-        System.out.println(serviceNm);
-        final DatabaseReference services = FirebaseDatabase.getInstance().getReference("services");
-        services.addValueEventListener(new ValueEventListener() {
-               @Override
-               public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                   for (DataSnapshot data: dataSnapshot.getChildren()) {
-                       Service service = data.getValue(Service.class);
-                       if(serviceNm.equalsIgnoreCase(service.getServiceName())){
-                           // set front layout
-                           bookingServiceName.setText(serviceNm);
-                           bookingDesc.setText(service.getServiceDesc());
-                       }
-                   }
-               }
 
-               @Override
-               public void onCancelled(@NonNull DatabaseError databaseError) {
+        final Query serviceQry = FirebaseDatabase.getInstance().getReference("services").orderByChild("serviceName").equalTo(serviceNm).limitToFirst(1);
+        serviceQry.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Service service = dataSnapshot.getChildren().iterator().next().getValue(Service.class);
+                // set front layout
+                bookingServiceName.setText(serviceNm);
+                bookingDesc.setText(service.getServiceDesc());
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-               }
-           });
-        //services.child("services").orderByChild("serviceName").equalTo(serviceNm);
+            }
+        });
 
         addrLine1 = (EditText) findViewById(R.id.addrLine1);
         city1 = (EditText) findViewById(R.id.city);

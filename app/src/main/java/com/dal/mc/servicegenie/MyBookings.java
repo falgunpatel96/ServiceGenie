@@ -22,12 +22,26 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MyBookings extends AppCompatActivity {
 
@@ -35,7 +49,7 @@ public class MyBookings extends AppCompatActivity {
     RViewAdapter rviewAdapter;
     ArrayList<Booking> bookings;
     private Runnable runnable;
-
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -63,6 +77,44 @@ public class MyBookings extends AppCompatActivity {
         thread.start();*/
 
 //        rviewAdapter = new RViewAdapter(bookings);
+        thread.start();
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.nav_bookings);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+
+    }
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    Fragment selectedFragment = null;
+
+                    switch (menuItem.getItemId()) {
+                        case R.id.nav_home:
+                            selectedFragment = new HomeFragment();
+                            break;
+
+                        case R.id.nav_bookings:
+                            selectedFragment = new BookingsFragment();
+                            break;
+
+                        case R.id.nav_help:
+                            selectedFragment = new HelpFragment();
+                            break;
+
+                        case R.id.nav_profile:
+                            selectedFragment = new ProfileFragment();
+                            break;
+
+                    }
+//                    bottomNavigationView.setSelectedItemId(menuItem.getItemId());
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, selectedFragment).commit();
+
+                    return true;
+                }
+            };
+
+        /*rviewAdapter = new RViewAdapter(bookings);
 
 
 //        recyclerView.setAdapter(rviewAdapter);
@@ -73,6 +125,10 @@ public class MyBookings extends AppCompatActivity {
 
     }
 
+    public void getAllBookingsByUser() {
+        //final TaskCompletionSource<String> task = new TaskCompletionSource<>();
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
+        final FirebaseUser user = auth.getCurrentUser();
 
     /***************************************************************************************
      *    Title: JsonObjectRequest setup in getJokes() function
@@ -216,6 +272,5 @@ public class MyBookings extends AppCompatActivity {
 
         //adding request in queue
         //RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
-
     }
 }
