@@ -110,12 +110,16 @@ public class MainActivity extends AppCompatActivity {
         // display grid view of services
         gridView.setAdapter(new GridAdaptor(this, images, values));
 
-        // Go to booking section
+        // Go to Booking section
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent;
-                intent = new Intent(getApplicationContext(), AddNewService.class); // [change name to booking page]
+                /*switch(position) {
+                    default:
+                        break;
+                }*/
+                intent = new Intent(getApplicationContext(), BookingService.class); // [change name to Booking page]
                 intent.putExtra("SERVICE_NAME", values[position]);
                 startActivity(intent);
             }
@@ -125,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         addserviceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), AddNewService.class));
+                startActivity(new Intent(getApplicationContext(), MyBookings.class));
             }
         });
     }
