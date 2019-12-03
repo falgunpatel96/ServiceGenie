@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="AndroidLayouts">
     <shared>
       <config />
@@ -333,6 +334,10 @@
         </RuleState>
       </list>
     </option>
+=======
+  <component name="FavoritesManager">
+    <favorites_list name="Service Genie" />
+>>>>>>> 24f6df7adce59f170b402fa20520b1e2df83638d
   </component>
   <component name="RunManager">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
@@ -396,6 +401,7 @@
       </method>
     </configuration>
   </component>
+<<<<<<< HEAD
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -750,4 +756,6 @@
       </provider>
     </entry>
   </component>
+=======
+>>>>>>> 24f6df7adce59f170b402fa20520b1e2df83638d
 </project>
