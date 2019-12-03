@@ -77,7 +77,7 @@ public class MyBookings extends AppCompatActivity {
         thread.start();*/
 
 //        rviewAdapter = new RViewAdapter(bookings);
-        thread.start();
+        //thread.start();
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.nav_bookings);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
