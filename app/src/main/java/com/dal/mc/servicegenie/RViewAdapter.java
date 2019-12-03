@@ -54,7 +54,7 @@ public class RViewAdapter extends RecyclerView.Adapter<RViewAdapter.ViewHolder> 
     @Override
     //number of recyclerview required
     public int getItemCount() {
-        return 10;
+        return bookingList.size();
     }
 
 
