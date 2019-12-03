@@ -1,12 +1,14 @@
 package com.dal.mc.servicegenie;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,7 +17,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,7 +30,7 @@ public class MyBookings extends AppCompatActivity {
     RViewAdapter rviewAdapter;
     ArrayList<Booking> bookings;
     private Runnable runnable;
-
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +60,42 @@ public class MyBookings extends AppCompatActivity {
         //notifying RecyclerViewAdapter for change in data
         rviewAdapter.notifyDataSetChanged();
 
+         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.nav_bookings);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
     }
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    Fragment selectedFragment = null;
+
+                    switch (menuItem.getItemId()) {
+                        case R.id.nav_home:
+                            selectedFragment = new HomeFragment();
+                            break;
+
+                        case R.id.nav_bookings:
+                            selectedFragment = new BookingsFragment();
+                            break;
+
+                        case R.id.nav_help:
+                            selectedFragment = new HelpFragment();
+                            break;
+
+                        case R.id.nav_profile:
+                            selectedFragment = new ProfileFragment();
+                            break;
+
+                    }
+//                    bottomNavigationView.setSelectedItemId(menuItem.getItemId());
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, selectedFragment).commit();
+
+                    return true;
+                }
+            };
+
 
 
     /***************************************************************************************
@@ -145,7 +183,6 @@ public class MyBookings extends AppCompatActivity {
 
         //notifying RecyclerViewAdapter for change in data
         rviewAdapter.notifyDataSetChanged();
-
         //adding request in queue
         //RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 
