@@ -30,22 +30,43 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/userphoto"
+                android:src="@drawable/ic_user_512"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
+        <EditText
+            android:enabled="false"
             android:id="@+id/profileName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/profile.profilePicLayout"
             android:layout_centerHorizontal="true"
-            android:text="Joey Tribbiani"
+            android:text="Loading..."
             android:textSize="32sp"
             android:textColor="@color/white"
             android:layout_marginTop="15dp"
             />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/profile.editProfile"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="44dp"
+            android:drawableLeft="@drawable/ic_mode_edit_black_24dp"
+            android:gravity="center"
+            android:text="Edit"
+            android:textColor="@color/black"
+            android:textSize="0sp"
+            app:backgroundTint="@android:color/transparent"
+            app:cornerRadius="0dp"
+            app:rippleColor="@color/colorGreyTxtBackground"
+            app:strokeColor="@color/black"
+            app:strokeWidth="2dp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -78,7 +99,7 @@
                     android:id="@+id/profilePhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+1 (902)-412-1234"
+                    android:text="+1 (902)-XXX-XXXX"
                     android:fontFamily="sans-serif-light"
                     android:textColor="#000000"
                     android:textSize="18sp"/>
@@ -100,9 +121,10 @@
                     android:text="Address"
                     android:textSize="13sp"
                     android:textColor="@color/headings"/>
-                <TextView
+                <EditText
                     android:id="@+id/profileAddress"
                     android:layout_width="wrap_content"
+                    android:enabled="false"
                     android:layout_height="wrap_content"
                     android:text="1234 abc rd, Halifax, NS"
                     android:fontFamily="sans-serif-light"
@@ -130,7 +152,7 @@
                     android:id="@+id/profileEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="joey@tribbiani.com"
+                    android:text="xxx@abcd.com"
                     android:fontFamily="sans-serif-light"
                     android:textColor="#000000"
                     android:textSize="18sp"/>
@@ -161,14 +183,14 @@
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="0dp"
             android:text="@string/activity_profile_change_password"
-            android:textSize="15sp"
             android:textColor="@color/black"
+            android:textSize="15sp"
             app:backgroundTint="@android:color/transparent"
             app:cornerRadius="0dp"
             app:layout_constraintBottom_toTopOf="@id/profile.signOut"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:rippleColor="@color/colorGreyTxtBackground"
             app:strokeColor="@color/black"

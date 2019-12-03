@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimaryDark">#B1B7B6</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorGreyTxtBackground">#B9B7B7</color>
     <color name="colorWhiteTxtBackground">#FFFFFF</color>
     <color name="hintColor">#969696</color>
     <color name="colorPrimaryProfile">#49BEFF</color>
     <color name="colorPrimaryDarkProfile">#69DCE5</color>
-    <color name="colorAccentProfile">#0D5D98</color>
-    <color name="address">#2F7092</color>
+    <color name="colorAccentProfile">#CCCFD1</color>
+    <color name="address">#A4A6A7</color>
     <color name="followers">#0D5D98</color>
     <color name="headings">#3797CF</color>
     <color name="solidCircle">#AAFFFFFF</color>

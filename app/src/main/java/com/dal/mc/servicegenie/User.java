@@ -36,6 +36,9 @@ public class User {
     public String getProfilePicEncoded() {
         return profilePicEncoded;
     }
+    public void setDisplayName(String name) {
+        this.displayName=name;
+    }
 
     public String getUid() {
         return uid;
