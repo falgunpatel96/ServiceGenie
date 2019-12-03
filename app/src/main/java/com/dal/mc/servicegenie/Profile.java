@@ -132,7 +132,7 @@ public class Profile extends AppCompatActivity {
                                         dialog.dismiss();
 //                                    user.setDisplayName("")
                                         Toast.makeText(getApplicationContext(),"Profile Updated",Toast.LENGTH_SHORT).show();
-                                        Toast.makeText(getApplicationContext(),user.getDisplayName(),Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(getApplicationContext(),user.getDisplayName(),Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             })

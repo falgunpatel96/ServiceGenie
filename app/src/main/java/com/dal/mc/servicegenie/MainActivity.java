@@ -1,27 +1,39 @@
 package com.dal.mc.servicegenie;
 
 import android.app.AlertDialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private Button signout;
     private Button profile;
-    private GridView gridView;
-    private Button addserviceBtn;
-    private Button contactUsBtn;
+    GridView gridView;
+    Button addserviceBtn;
+    User userDetails;
 
     int[] images = {
             R.drawable.cleaning, R.drawable.plumbing, R.drawable.electrician,
@@ -53,8 +65,20 @@ public class MainActivity extends AppCompatActivity {
         final FirebaseUser user = auth.getCurrentUser();
 
         if (user != null) {
-            TextView view = findViewById(R.id.testTxt);
-            view.setText(("Hello " + user.getDisplayName()));
+            final TextView view = findViewById(R.id.testTxt);
+            DatabaseReference users = FirebaseDatabase.getInstance().getReference("users");
+            users.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    userDetails = dataSnapshot.child(user.getUid()).getValue(User.class);
+
+                    view.setText("Hello "+userDetails.getDisplayName());
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         } else {
             startActivity(new Intent(MainActivity.this, Login.class));
             finish();
@@ -62,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
         profile = findViewById(R.id.profileBtn);
         signout = findViewById(R.id.testBtn);
         addserviceBtn = findViewById(R.id.addMoreServices);
-        contactUsBtn = findViewById(R.id.activity_contact_us);
         gridView = (GridView) findViewById(R.id.grid);
 
         profile.setOnClickListener(new View.OnClickListener() {
@@ -102,19 +125,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Go to addMoreServices page on 'addMoreServices' button click
+        // Go to addMoreServices page on "addMoreServices' button click
         addserviceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), MyBookings.class));
-            }
-        });
-
-        // go to contact us page
-        contactUsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), activity_help.class));
             }
         });
     }

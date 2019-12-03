@@ -34,14 +34,11 @@ public class activity_help extends AppCompatActivity {
         emailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] TO = {"someone@gmail.com"};
-                String[] CC = {"xyz@gmail.com"};
+                String[] TO = {"dal.fall19.mc@gmail.com"};
                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
                 emailIntent.setData(Uri.parse("mailto:"));
                 emailIntent.setType("text/plain");
-
                 emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-                emailIntent.putExtra(Intent.EXTRA_CC, CC);
                 try {
                     startActivity(Intent.createChooser(emailIntent, "Send mail..."));
                     finish();
