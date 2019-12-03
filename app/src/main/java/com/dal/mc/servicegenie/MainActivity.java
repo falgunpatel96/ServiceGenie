@@ -7,7 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -17,7 +19,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     Button addserviceBtn;
     User userDetails;
     private Button contactUsBtn;
+    private BottomNavigationView bottomNavigationView;
 
     int[] images = {
             R.drawable.cleaning, R.drawable.plumbing, R.drawable.electrician,
@@ -59,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
 
         final FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -67,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (user != null) {
             final TextView view = findViewById(R.id.testTxt);
+//            Log.v("view",view.toString());
             DatabaseReference users = FirebaseDatabase.getInstance().getReference("users");
             users.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -80,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
-        } else {
+        }
+        else {
             startActivity(new Intent(MainActivity.this, Login.class));
             finish();
         }
@@ -127,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Go to addMoreServices page on "addMoreServices' button click
+//         Go to addMoreServices page on "addMoreServices' button click
         addserviceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,8 +148,44 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), activity_help.class));
             }
         });
+
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+
+
     }
 
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    Fragment selectedFragment = null;
+
+                    switch (menuItem.getItemId()) {
+                        case R.id.nav_home:
+                            selectedFragment = new HomeFragment();
+                            break;
+
+                        case R.id.nav_bookings:
+                            selectedFragment = new BookingsFragment();
+                            break;
+
+                        case R.id.nav_help:
+                            selectedFragment = new HelpFragment();
+                            break;
+
+                        case R.id.nav_profile:
+                            selectedFragment = new ProfileFragment();
+                            break;
+
+                    }
+
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, selectedFragment).commit();
+
+                    return true;
+                }
+            };
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
@@ -158,4 +201,5 @@ public class MainActivity extends AppCompatActivity {
                 }).create().show();
 
     }
-}
+    }
+

@@ -1,5 +1,7 @@
 package com.dal.mc.servicegenie;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,14 @@ public class BookingsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Intent intent = new Intent(getActivity(), MyBookings.class);
+        final ProgressDialog dialog = new ProgressDialog(getContext());
+        dialog.setMessage("Loading...");
+        dialog.setCancelable(false);
+        dialog.show();
+        startActivity(intent);
+        dialog.dismiss();
+
         return inflater.inflate(R.layout.my_bookings, container, false);
     }
 }
