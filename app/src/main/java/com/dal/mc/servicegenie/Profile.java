@@ -130,7 +130,7 @@ public class Profile extends AppCompatActivity {
                     addressView.setEnabled(true);
                     editButton.setText("Save");
                     Drawable img = getResources().getDrawable( R.drawable.ic_save_black_24dp);
-                    img.setBounds( 0, 0, 235, 235 );  // set the image size
+                    img.setBounds( 0, 0, 174, 174);  // set the image size
                     editButton.setCompoundDrawables( img, null, null, null );
                 }
                 else{
@@ -144,7 +144,7 @@ public class Profile extends AppCompatActivity {
                     Log.v("address",updatedAddress);
                     editButton.setText("Edit");
                     Drawable img = getResources().getDrawable( R.drawable.ic_mode_edit_black_24dp);
-                    img.setBounds( 0, 0, 235, 235 );  // set the image size
+                    img.setBounds( 0, 0, 174, 174);  // set the image size
                     editButton.setCompoundDrawables( img, null, null, null );
                     Toast.makeText(getApplicationContext(),"Entered save",Toast.LENGTH_SHORT).show();
                     dialog.setMessage("Updating Profile...");
