@@ -145,7 +145,7 @@ public class BookingService extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (which == DialogInterface.BUTTON_POSITIVE) {
-                                    //Toast.makeText(getApplicationContext(), tpd.+ " " + tpd.currentMinute, Toast.LENGTH_LONG).show();
+                                    //Toast.makeText(getApplicationContext(), serviceDateTimeCalendar.getTime().toString(), Toast.LENGTH_LONG).show();
 
 //                                    serviceDateTimeCalendar.set(Calendar.HOUR_OF_DAY, tpd.currentHour);
 //                                    serviceDateTimeCalendar.set(Calendar.MINUTE, tpd.currentMinute);
