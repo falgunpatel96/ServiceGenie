@@ -74,7 +74,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/grid"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="165dp"
         android:gravity="center"
         android:text="@string/addMoreServices"
         app:layout_constraintEnd_toEndOf="parent"

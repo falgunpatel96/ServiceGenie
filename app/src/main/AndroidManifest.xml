@@ -3,6 +3,8 @@
     package="com.dal.mc.servicegenie">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -12,10 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
-
+        <activity android:name=".MyBookings"/>
+        <activity android:name=".BookingService" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
         <activity
             android:name=".PhoneVerification"
             android:label="@string/title_activity_phone_verification"
@@ -52,17 +55,17 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MainActivity">
 
-            <!--START for search on home page-->
+            <!-- START for search on home page -->
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
+
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <!--END for search on home page-->
+            <!-- END for search on home page -->
         </activity>
-        <activity android:name=".AddNewService"></activity>
-
+        <activity android:name=".AddNewService" />
     </application>
 
 </manifest>
