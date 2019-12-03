@@ -113,7 +113,7 @@ public class Login extends AppCompatActivity {
         forgotPassword.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction()) {
+                switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         forgotPassword.setBackgroundColor(getResources().getColor(R.color.colorGreyTxtBackground));
                         break;
@@ -156,7 +156,7 @@ public class Login extends AppCompatActivity {
                                     emailVerifyIntent.putExtra(PASSWORD_KEY, password.getText().toString());
                                     startActivity(emailVerifyIntent);
                                     password.setText("");
-                                } else if (user.getPhoneNumber() == null){
+                                } else if (user.getPhoneNumber() == null) {
                                     Intent phoneIntent = new Intent(Login.this, PhoneVerification.class);
                                     startActivity(phoneIntent);
                                     password.setText("");
@@ -218,7 +218,7 @@ public class Login extends AppCompatActivity {
         signupTxtView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction()) {
+                switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         signupTxtView.setBackgroundColor(getResources().getColor(R.color.colorGreyTxtBackground));
                         break;
