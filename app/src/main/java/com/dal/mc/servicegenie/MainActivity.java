@@ -5,6 +5,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -14,10 +15,17 @@ import android.widget.GridView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private Button profile;
     GridView gridView;
     Button addserviceBtn;
+    User userDetails;
 
     int[] images = {
             R.drawable.cleaning, R.drawable.plumbing, R.drawable.electrician,
@@ -56,8 +65,20 @@ public class MainActivity extends AppCompatActivity {
         final FirebaseUser user = auth.getCurrentUser();
 
         if (user != null) {
-            TextView view = findViewById(R.id.testTxt);
-            view.setText(("Hello " + user.getDisplayName()));
+            final TextView view = findViewById(R.id.testTxt);
+            DatabaseReference users = FirebaseDatabase.getInstance().getReference("users");
+            users.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    userDetails = dataSnapshot.child(user.getUid()).getValue(User.class);
+
+                    view.setText("Hello "+userDetails.getDisplayName());
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         } else {
             startActivity(new Intent(MainActivity.this, Login.class));
             finish();
