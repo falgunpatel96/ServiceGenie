@@ -4,52 +4,57 @@ import java.util.Calendar;
 
 public class Booking {
 
-    private String serviceName,status,profInfo;
-    private Calendar timeNDate;
-    private Float cost;
+    private String RequestedServiceName,RequestStatus,RequestProfName,RequestedByEmailId,RequestTimeandDate,RequestCost;
+    //private Calendar timeNDate;
+    //private Float cost;
 
     //Getter method for service name
-    public String getServiceName() {
-        return serviceName;
+    public String getRequestedServiceName() {
+        return RequestedServiceName;
     }
 
     //Setter method for service name
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setRequestedServiceName(String requestedServiceName) {
+        RequestedServiceName = requestedServiceName;
     }
 
-    public String getStatus() {
-        return status;
+    public String getRequestStatus() {
+        return RequestStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setRequestStatus(String requestStatus) {
+        RequestStatus = requestStatus;
     }
 
-    public String getProfInfo() {
-        return profInfo;
+    public String getRequestProfName() {
+        return RequestProfName;
     }
 
-    public void setProfInfo(String profInfo) {
-        this.profInfo = profInfo;
+    public void setRequestProfName(String requestProfName) {
+        RequestProfName = requestProfName;
     }
 
-    public Calendar getTimeNDate() {
-        return timeNDate;
+    public String getRequestedByEmailId() {
+        return RequestedByEmailId;
     }
 
-    public void setTimeNDate(Calendar timeNDate) {
-        this.timeNDate = timeNDate;
+    public void setRequestedByEmailId(String requestByEmailId) {
+        RequestedByEmailId = requestByEmailId;
     }
 
-    public Float getCost() {
-        return cost;
+    public String getRequestTimeandDate() {
+        return RequestTimeandDate;
     }
 
-    public void setCost(Float cost) {
-        this.cost = cost;
+    public void setRequestTimeandDate(String requestTimeandDate) {
+        RequestTimeandDate = requestTimeandDate;
     }
 
+    public String getRequestCost() {
+        return RequestCost;
+    }
 
-
+    public void setRequestCost(String requestCost) {
+        RequestCost = requestCost;
+    }
 }

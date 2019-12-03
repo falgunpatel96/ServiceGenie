@@ -47,7 +47,6 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/padding"
                     android:paddingRight="@dimen/padding"
-                    android:text="service name"
                     android:textSize="@dimen/textSize"
                     />
             </LinearLayout>
@@ -80,7 +79,6 @@
                     android:paddingTop="10dp"
                     android:paddingRight="@dimen/padding"
                     android:paddingBottom="10dp"
-                    android:text="calender obj to string"
                     android:textSize="@dimen/textSize" />
             </LinearLayout>
 
@@ -108,7 +106,6 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/padding"
                     android:paddingRight="@dimen/padding"
-                    android:text="name"
                     android:textSize="@dimen/textSize" />
             </LinearLayout>
 
@@ -136,7 +133,6 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/padding"
                     android:paddingRight="@dimen/padding"
-                    android:text="service name"
                     android:textSize="@dimen/textSize" />
             </LinearLayout>
 
@@ -174,7 +170,6 @@
                         android:paddingTop="10dp"
                         android:paddingRight="@dimen/padding"
                         android:paddingBottom="10dp"
-                        android:text="cost"
                         android:textSize="@dimen/textSize"
                         android:textColor="@color/red"/>
 

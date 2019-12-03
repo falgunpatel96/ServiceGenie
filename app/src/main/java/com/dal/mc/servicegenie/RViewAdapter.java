@@ -41,11 +41,11 @@ public class RViewAdapter extends RecyclerView.Adapter<RViewAdapter.ViewHolder> 
             Booking booking = bookingList.get(position);
 
 
-            holder.serviceName.setText(booking.getServiceName());
-            holder.serviceDateTime.setText(booking.getTimeNDate().getTime().toString());
-            holder.serviceProfName.setText(booking.getProfInfo());
-            holder.serviceStatus.setText(booking.getStatus());
-            holder.serviceCost.setText(booking.getCost().toString());
+            holder.serviceName.setText(booking.getRequestedServiceName());
+            holder.serviceDateTime.setText(booking.getRequestTimeandDate());
+            holder.serviceProfName.setText(booking.getRequestProfName());
+            holder.serviceStatus.setText(booking.getRequestStatus());
+            holder.serviceCost.setText(booking.getRequestCost());
         }
 
     }
@@ -54,7 +54,7 @@ public class RViewAdapter extends RecyclerView.Adapter<RViewAdapter.ViewHolder> 
     @Override
     //number of recyclerview required
     public int getItemCount() {
-        return 10;
+        return bookingList.size();
     }
 
 
@@ -73,6 +73,12 @@ public class RViewAdapter extends RecyclerView.Adapter<RViewAdapter.ViewHolder> 
 
         }
 
+    }
+
+    public void doRefresh(ArrayList<Booking> bookings)
+    {
+        this.bookingList = bookings;
+        notifyDataSetChanged();
     }
 
 }

@@ -30,6 +30,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,7 +56,7 @@ public class BookingService extends AppCompatActivity {
     Calendar serviceDateTimeCalendar;
     //RangeTimePickerDialog tpd;
     TimePickerDialog tpd;
-    Button location;
+    Button location,book;
     GPSTracker2 gps;
     BookingService activity;
     private int LOCATION_PERMISSION_CODE = 1;
@@ -68,6 +70,8 @@ public class BookingService extends AppCompatActivity {
     TextView bookingServiceName;
     TextView bookingDesc;
 
+    private DatabaseReference databaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +79,14 @@ public class BookingService extends AppCompatActivity {
         setContentView(R.layout.activity_booking_service);
         activity = BookingService.this;
 
+        //firebase object
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
+
         gps = new GPSTracker2(BookingService.this);
         bookingServiceName = findViewById(R.id.booking_service_name);
         bookingDesc = findViewById(R.id.description);
+        book = (Button) findViewById(R.id.book);
 
         Intent intent = getIntent();
         // get desc and name from firebase
@@ -123,6 +132,25 @@ public class BookingService extends AppCompatActivity {
                     Log.e("Permission", "We Don't Have Permission");
                     Toast.makeText(activity, "We don't have permission please enable it", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        book.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Booking booking = new Booking();
+                booking.setRequestedServiceName(serviceNm);
+
+                //get emailId
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                final FirebaseUser theUser = mAuth.getCurrentUser();
+                booking.setRequestedByEmailId(theUser.getEmail().toString());
+
+                booking.setRequestTimeandDate(datetimeedt.getText().toString());
+                booking.setRequestCost("$70");
+                booking.setRequestProfName("Mathew");
+                booking.setRequestStatus("Pending");
+                databaseReference.child("ServiceRequest").setValue(booking);
             }
         });
 

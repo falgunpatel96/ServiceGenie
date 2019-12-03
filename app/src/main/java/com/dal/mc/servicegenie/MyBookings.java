@@ -1,12 +1,20 @@
 package com.dal.mc.servicegenie;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,6 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,32 +38,37 @@ public class MyBookings extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_bookings);
 
         bookings = new ArrayList<Booking>();
 
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                getJokes();
-            }
-        };
-
-        //retrieve data on separate thread
-        Thread thread = new Thread(null, runnable, "background");
-        thread.start();
-
-        rviewAdapter = new RViewAdapter(bookings);
-
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(rviewAdapter);
+
+        /*runnable = new Runnable() {
+            @Override
+            public void run() {
+                getBookings();
+            }
+        };*/
+
+        getBookings();
+
+        /*//retrieve data on separate thread
+        Thread thread = new Thread(null, runnable, "background");
+        thread.start();*/
+
+//        rviewAdapter = new RViewAdapter(bookings);
+
+
+//        recyclerView.setAdapter(rviewAdapter);
 
         //notifying RecyclerViewAdapter for change in data
-        rviewAdapter.notifyDataSetChanged();
+//        rviewAdapter.notifyDataSetChanged();
 
 
     }
@@ -76,8 +90,62 @@ public class MyBookings extends AppCompatActivity {
      *    Availability: chuck_norris_icon.png from code.zip/code , https://dal.brightspace.com/d2l/le/content/100143/viewContent/1506439/View
      ***************************************************************************************/
 
-    public void getJokes() {
-        //final String url = "http://api.icndb.com/jokes/random/10";
+    public void getBookings() {
+
+        //get current users email ID
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser theUser = mAuth.getCurrentUser();
+
+        final DatabaseReference services = FirebaseDatabase.getInstance().getReference("ServiceRequest");
+        services.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot data: dataSnapshot.getChildren()) {
+                    Booking booking = data.getValue(Booking.class);
+                    if(theUser.getEmail().toString().equalsIgnoreCase(booking.getRequestedByEmailId())){
+                        // set front layout
+
+                        //add to recycler view
+                        bookings.add(booking);
+                        Log.e("bookings","bookings Size:"+bookings.size());
+
+                        if(rviewAdapter == null )
+                        {
+                            rviewAdapter = new RViewAdapter(bookings);
+                            recyclerView.setAdapter(rviewAdapter);
+                        }
+                        if(bookings!=null && !bookings.isEmpty())
+                        {
+                            rviewAdapter.doRefresh(bookings);
+                        }
+                    }
+                }
+            }
+
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        Log.e("Booking","Bookings out of listener:"+bookings.size());
+
+        //notifying RecyclerViewAdapter for change in data
+       /* if(rviewAdapter == null )
+        {
+            rviewAdapter = new RViewAdapter(bookings);
+        }
+        if(bookings!=null && !bookings.isEmpty())
+        {
+            rviewAdapter.doRefresh(bookings);
+        }
+        else
+        {
+            Toast.makeText(this, "bookins is blank", Toast.LENGTH_SHORT).show();
+        }*/
+//        rviewAdapter.notifyDataSetChanged();
 
 
 //        //build the request
@@ -130,21 +198,21 @@ public class MyBookings extends AppCompatActivity {
 //            }
 //        }
 //        );
-        Calendar tmp = Calendar.getInstance();
+        //Calendar tmp = Calendar.getInstance();
 
 
-        Booking booking = new Booking();
-        booking.setServiceName("Car Cleaner");
-        booking.setCost(new Float(200));
-        booking.setProfInfo("Kaycereous");
-        booking.setStatus("Completed");
-        booking.setTimeNDate(tmp);
+//        Booking booking = new Booking();
+//        booking.setServiceName("Car Cleaner");
+//        booking.setCost(new Float(200));
+//        booking.setProfInfo("Kaycereous");
+//        booking.setStatus("Completed");
+//        booking.setTimeNDate(tmp);
 
-        for (int i=0;i<10;i++)
-            bookings.add(booking);
-
-        //notifying RecyclerViewAdapter for change in data
-        rviewAdapter.notifyDataSetChanged();
+//        for (int i=0;i<bookings.size();i++)
+//            bookings.add(booking);
+//
+//        //notifying RecyclerViewAdapter for change in data
+//        rviewAdapter.notifyDataSetChanged();
 
         //adding request in queue
         //RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
