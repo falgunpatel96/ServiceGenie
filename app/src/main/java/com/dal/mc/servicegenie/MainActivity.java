@@ -115,10 +115,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent;
-                /*switch(position) {
-                    default:
-                        break;
-                }*/
                 intent = new Intent(getApplicationContext(), AddNewService.class); // [change name to booking page]
                 intent.putExtra("SERVICE_NAME", values[position]);
                 startActivity(intent);
@@ -133,44 +129,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    // for search
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-        if (searchView != null) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-            searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-                @Override
-                public boolean onClose() {
-                    //TODO: Reset your views
-                    return false;
-                }
-            });
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String s) {
-                    return false; //do the default
-                }
-
-                @Override
-                public boolean onQueryTextChange(String s) {
-                    //NOTE: doing anything here is optional, onNewIntent is the important bit
-                    if (s.length() > 1) { //2 chars or more
-                        //TODO: filter/return results
-                    } else if (s.length() == 0) {
-                        //TODO: reset the displayed data
-                    }
-                    return false;
-                }
-
-            });
-        }
-        return true;
-    }
-
 
     @Override
     public void onBackPressed() {
