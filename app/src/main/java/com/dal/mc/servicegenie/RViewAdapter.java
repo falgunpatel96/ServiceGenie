@@ -1,12 +1,15 @@
 package com.dal.mc.servicegenie;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -17,9 +20,13 @@ public class RViewAdapter extends RecyclerView.Adapter<RViewAdapter.ViewHolder> 
 
     ArrayList<Booking> bookingList;
     Context context;
+    onClickListener listener;
 
-    public RViewAdapter(ArrayList<Booking> bookingList) {
+    public RViewAdapter(Context context, ArrayList<Booking> bookingList,onClickListener listener)
+    {
+        this.context = context;
         this.bookingList = bookingList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -34,7 +41,7 @@ public class RViewAdapter extends RecyclerView.Adapter<RViewAdapter.ViewHolder> 
 
     @Override
     //Binding the data on views
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
 
         if (bookingList.size() > 0) {
@@ -46,6 +53,18 @@ public class RViewAdapter extends RecyclerView.Adapter<RViewAdapter.ViewHolder> 
             holder.serviceProfName.setText(booking.getRequestProfName());
             holder.serviceStatus.setText(booking.getRequestStatus());
             holder.serviceCost.setText(booking.getRequestCost());
+
+            holder.helpBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    /*Intent intent = new Intent(context, activity_help.class);
+                    context.startActivity(intent);*/
+                    if(listener!=null)
+                    {
+                        listener.onItemClickListener(holder.getAdapterPosition(),bookingList.get(holder.getAdapterPosition()));
+                    }
+                }
+            });
         }
 
     }
@@ -69,7 +88,16 @@ public class RViewAdapter extends RecyclerView.Adapter<RViewAdapter.ViewHolder> 
             serviceProfName = (TextView) itemView.findViewById(R.id.serviceProfName);
             serviceStatus = (TextView) itemView.findViewById(R.id.serviceStatus);
             serviceCost = (TextView) itemView.findViewById(R.id.serviceCost);
-            helpBtn = (Button) itemView.findViewById(R.id.helpBtn);
+            helpBtn = itemView.findViewById(R.id.helpBtn);
+            /*helpBtn = (Button) itemView.findViewById(R.id.helpBtn);
+
+            helpBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(, activity_help.class);
+                    context.startActivity();
+                }
+            });*/
 
         }
 
@@ -80,5 +108,11 @@ public class RViewAdapter extends RecyclerView.Adapter<RViewAdapter.ViewHolder> 
         this.bookingList = bookings;
         notifyDataSetChanged();
     }
+
+    public interface onClickListener
+    {
+        void onItemClickListener(int position,Booking booking);
+    }
+
 
 }

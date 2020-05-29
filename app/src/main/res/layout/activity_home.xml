@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/testTxt" />
 
-    <Button
+   <!-- <Button
         android:id="@+id/profileBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.462"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/testTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/testTxt" />-->
 
     <GridView
         android:id="@+id/grid"
@@ -70,17 +70,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/bottomNavigationView"
         android:text="@string/add_more_Services" />
 
-    <Button
+    <!--<Button
         android:id="@+id/activity_contact_us"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="48dp"
-        android:text="Contact Us" />
+        android:text="Contact Us" />-->
 
     <FrameLayout
         android:id="@+id/fragmentContainer"

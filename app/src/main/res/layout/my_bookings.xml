@@ -15,7 +15,8 @@
         android:paddingTop="2dp"
         android:paddingRight="2dp"
         android:paddingBottom="2dp"
-        tools:context=".MyBookings">
+        tools:context=".MyBookings"
+        android:layout_above="@+id/bottomNavigationView">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"

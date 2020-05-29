@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     GridView gridView;
     Button addserviceBtn;
     User userDetails;
-    private Button contactUsBtn;
+    //private Button contactUsBtn;
     private BottomNavigationView bottomNavigationView;
 
     int[] images = {
@@ -91,13 +91,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, Login.class));
             finish();
         }
-        profile = findViewById(R.id.profileBtn);
+        //profile = findViewById(R.id.profileBtn);
         signout = findViewById(R.id.testBtn);
         addserviceBtn = findViewById(R.id.addMoreServices);
         gridView = (GridView) findViewById(R.id.grid);
-        contactUsBtn = findViewById(R.id.activity_contact_us);
+        //contactUsBtn = findViewById(R.id.activity_contact_us);
 
-        profile.setOnClickListener(new View.OnClickListener() {
+        /*profile.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(profileIntent);
             }
         });
-
+*/
         signout.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -138,16 +138,16 @@ public class MainActivity extends AppCompatActivity {
         addserviceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MyBookings.class));
+                startActivity(new Intent(getApplicationContext(), AddNewService.class));
             }
         });
         // go to contact us page
-        contactUsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), activity_help.class));
-            }
-        });
+//        contactUsBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getApplicationContext(), activity_help.class));
+//            }
+//        });
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.nav_home);

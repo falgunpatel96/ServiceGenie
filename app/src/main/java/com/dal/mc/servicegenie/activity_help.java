@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -73,13 +75,17 @@ public class activity_help extends AppCompatActivity {
         emailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] TO = {"dal.fall19.mc@gmail.com"};
-                Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                emailIntent.setData(Uri.parse("mailto:"));
-                emailIntent.setType("text/plain");
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+//                String[] TO = {"dal.fall19.mc@gmail.com"};
+//                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+//                emailIntent.setData(Uri.parse("mailto:"));
+//                emailIntent.setType("text/plain");
+//                emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+
+                Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("mailto:"+"dal.fall19.mc@gmail.com"));
+                //startActivity(intent);
                 try {
-                    startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                    //startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                    startActivity(intent);
                     finish();
                 } catch (android.content.ActivityNotFoundException ex) {
                     Toast.makeText(activity_help.this,"There is no email client installed.", Toast.LENGTH_SHORT).show();
@@ -114,5 +120,11 @@ public class activity_help extends AppCompatActivity {
                 Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public void onBackPressed() {
+        Intent intent = new Intent(activity_help.this, MainActivity.class);
+        startActivity(intent);
+
     }
 }

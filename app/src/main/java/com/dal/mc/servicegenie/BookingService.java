@@ -145,7 +145,11 @@ public class BookingService extends AppCompatActivity {
                 booking.setRequestCost("$70");
                 booking.setRequestProfName("Mathew");
                 booking.setRequestStatus("Pending");
-                databaseReference.child("ServiceRequest").setValue(booking);
+                databaseReference.child("ServiceRequest").push().setValue(booking);
+
+                Toast.makeText(BookingService.this,"Booking successfully Done.",Toast.LENGTH_LONG).show();
+                Intent bookingDone = new Intent(BookingService.this, MainActivity.class);
+                startActivity(bookingDone);
             }
         });
 

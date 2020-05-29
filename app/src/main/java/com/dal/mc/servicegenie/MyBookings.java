@@ -1,5 +1,6 @@
 package com.dal.mc.servicegenie;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -43,7 +44,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class MyBookings extends AppCompatActivity {
+public class MyBookings extends AppCompatActivity implements RViewAdapter.onClickListener {
 
     RecyclerView recyclerView;
     RViewAdapter rviewAdapter;
@@ -167,7 +168,7 @@ public class MyBookings extends AppCompatActivity {
 
                         if(rviewAdapter == null )
                         {
-                            rviewAdapter = new RViewAdapter(bookings);
+                            rviewAdapter = new RViewAdapter(MyBookings.this,bookings,MyBookings.this);
                             recyclerView.setAdapter(rviewAdapter);
                         }
                         if(bookings!=null && !bookings.isEmpty())
@@ -272,5 +273,18 @@ public class MyBookings extends AppCompatActivity {
 
         //adding request in queue
         //RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+    }
+
+    @Override
+    public void onItemClickListener(int position, Booking booking)
+    {
+        Intent intent = new Intent(this, activity_help.class);
+        startActivity(intent);
+    }
+
+    public void onBackPressed() {
+        Intent intent = new Intent(MyBookings.this, MainActivity.class);
+        startActivity(intent);
+
     }
 }

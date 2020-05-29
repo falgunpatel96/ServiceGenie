@@ -51,7 +51,7 @@ public class AddNewService extends AppCompatActivity {
                 } else {
                     databaseReference = FirebaseDatabase.getInstance().getReference();
                     serviceRequest request = new serviceRequest(serviceName, userName, emailId, comment);
-                    databaseReference.child("ServiceRequest").push().setValue(request);
+                    databaseReference.child("CustomerFeedback").push().setValue(request);
                     new AlertDialog.Builder(AddNewService.this).setMessage("Thank you. Your request has been submitted. Our team will review the service request and get back to you.")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
